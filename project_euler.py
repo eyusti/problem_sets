@@ -6,7 +6,7 @@ for number in range(0, 1000):
 print(sum)"""
 
 # problem 2
-def problem_2():
+"""def problem_2():
     total = 0
     num1 = 1
     num2 = 1
@@ -22,30 +22,20 @@ def problem_2():
         num1 = num2
         num2 = new_value
     
-    print(total)
-
-def fib_rec(n):
-    if n <= 2:
-        return 1
-    return fib_rec(n-1) + fib_rec(n-2)
-
-def fib_generator():
-    f1 = 1
-    f2 = 1
-    while True:
-        yield f1
-        f1, f2 = f2, f2 + f1
-
-def foo():
-    yield 1
-    print("here")
-    yield 3
-    print("done")
-
-import itertools
-fib_up_to_n = itertools.takewhile(lambda f: f < 40000000, fib_generator())
-for x in fib_up_to_n:
-    print("a", x)
+    print(total)"""
 
 # problem 3
+"""number = 600851475143
 
+def smallest_factor(num):
+    for possible_factor in range(2,number):
+        if number % possible_factor == 0:
+            return possible_factor
+
+while True:
+    divisor = smallest_factor(number)
+    if divisor is None:
+        break
+    new_number = number / divisor
+    number = int(new_number)
+    print(number)"""
