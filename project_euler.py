@@ -63,7 +63,7 @@ for num_1 in range(999, 100, -1):
 print(max(palindromes))"""
 
 # problem 5
-def smallest_multiple():
+"""def smallest_multiple():
     c_num = 46189
     #highest_possible = 2 432 902 008 176 640 000
     while True:
@@ -81,7 +81,24 @@ def smallest_multiple():
                 c_num += 46189
                 break
 
-print(smallest_multiple())
+print(smallest_multiple())"""
+
+# problem 6
+
+"""sum_of_squares = 0
+square_of_sums = 0
+
+#sum of squares
+for num in range (1,101):
+    sum_of_squares += num**2
+
+#square of sums
+for num in range (1,101):
+    square_of_sums += num
+
+print((square_of_sums**2)-sum_of_squares)"""
+
+
     
 
 
