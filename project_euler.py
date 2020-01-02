@@ -98,6 +98,26 @@ for num in range (1,101):
 
 print((square_of_sums**2)-sum_of_squares)"""
 
+# problem 7
+list_of_primes = [2,3,5,7,11,13]
+current_number = 15
+
+def is_prime(test_num):
+    for num in range(3,test_num):
+        if test_num % num == 0:
+            return False
+    return True
+
+while len(list_of_primes) <= 10001:
+    prime_test = is_prime(current_number)
+    if prime_test:
+        list_of_primes.append(current_number)
+        current_number += 2
+    else:
+        current_number += 2
+print(list_of_primes[10000])
+
+
 
     
 
