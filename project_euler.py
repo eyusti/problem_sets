@@ -39,3 +39,27 @@ while True:
     new_number = number / divisor
     number = int(new_number)
     print(number)"""
+
+# problem 4
+"""palindromes = []
+for num_1 in range(999, 100, -1):
+    for num_2 in range(999, 100, -1):
+        # get string of number
+        product = num_1 * num_2
+        s_product = str(product)
+        # get two strings to compare
+        product_len = len(s_product)
+        midpoint = int(product_len / 2)
+        split_1 = s_product[0:midpoint]
+        if product_len % 2 == 0:
+            split_2 = s_product[midpoint:product_len]
+        else:
+            split_2 = s_product[midpoint+1:product_len]
+        # check if palindrome
+        temp_split_2 = list(reversed(split_2))
+        fixed_split_2 = ''.join(temp_split_2)
+        if split_1 == fixed_split_2:
+            palindromes.append(product)
+print(max(palindromes))"""
+
+
