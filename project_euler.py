@@ -62,4 +62,28 @@ for num_1 in range(999, 100, -1):
             palindromes.append(product)
 print(max(palindromes))"""
 
+# problem 5
+def smallest_multiple():
+    c_num = 46189
+    #highest_possible = 2 432 902 008 176 640 000
+    while True:
+        tracker = 0
+        #print("c_num:" + str(c_num))
+        for num in range(11,21):
+            if c_num % num != 0:
+                tracker += 1
+                #print("num:" + str(num))
+                #print("tracker:" + str(tracker))
+            if num == 20 and tracker == 0:
+                #print("!!!!!!!!!" + str(c_num))
+                return c_num
+            if tracker == 1:
+                c_num += 46189
+                break
+
+print(smallest_multiple())
+    
+
+
+
 
