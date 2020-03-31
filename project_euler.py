@@ -194,19 +194,26 @@ grid = [
 max_row = 0
 max_column = 0
 max_diagonal = 0
+
 """
+products_done = 0
 for row in grid:
     index = 0
     while index <= 16:
         product = row[index]*row[index+1]*row[index+2]*row[index+3]
+        #products_done += 1
         if product > max_row:
             max_row = product
         index+=1
 
 print(max_row)
+print(products_done)
+
 #48,477,312
+#340
 """
 """
+products_done = 0
 for c_index in range(20):
     column_list = []
     for r_index in range(20):
@@ -214,13 +221,15 @@ for c_index in range(20):
     index = 0
     while index <= 16:
         product = column_list[index]*column_list[index+1]*column_list[index+2]*column_list[index+3]
+        products_done += 1
         if product > max_column:
             max_column = product
         index+=1
 
 print(max_column)
+print(products_done)
 #51,267,216
-"""
+#340
 """
 for c_index in range(20):
     diagonal_list = []
@@ -231,9 +240,7 @@ for c_index in range(20):
         product = diagonal_list[index]*diagonal_list[index+1]*diagonal_list[index+2]*diagonal_list[index+3]
         if product > max_diagonal:
             max_diagonal = product
-        index+=1
-"""
-     
+        index+=1     
         
 
 
