@@ -7,15 +7,14 @@ import "strings"
 import "os"
 import "bufio"
 
-
-func main(){
+func main() {
 	// Problem 1
 	//const i = "49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d"
 	//solution_1 := problem_1(i)
 	//fmt.Println(solution_1)
 	// Problem 2
 	//const one = "1c0111001f010100061a024b53535009181c"
-	//const two = "686974207468652062756c6c277320657965" 
+	//const two = "686974207468652062756c6c277320657965"
 	//solution_2 := problem_2(one, two)
 	//fmt.Println(solution_2)
 	// Problem 3
@@ -23,25 +22,30 @@ func main(){
 	//solution_3, _:= problem_3(secret)
 	//fmt.Println(solution_3)
 	//Problem 4
-	const file_name = "set_1_problem_4.txt"
-	solution_4:= problem_4(file_name)
-	fmt.Println(solution_4)
+	//const file_name = "set_1_problem_4.txt"
+	//solution_4:= problem_4(file_name)
+	//fmt.Println(solution_4)
+	//Problem 5
+	const stanza = "Burning 'em, if you ain't quick and nimble\nI go crazy when I hear a cymbal"
+	solution_5 := problem_5(stanza)
+	fmt.Println(solution_5)
+
 }
 
-func error_checker(e error){
+func error_checker(e error) {
 	if e != nil {
 		fmt.Println("** WAS ERROR **")
 	}
 }
 
-func problem_1(input string)string{
+func problem_1(input string) string {
 	bytes, err := hex.DecodeString(input)
 	error_checker(err)
 	solution := base64.StdEncoding.EncodeToString(bytes)
 	return solution
 }
 
-func problem_2(input_1, input_2 string)string{
+func problem_2(input_1, input_2 string) string {
 	bytes_1, err_1 := hex.DecodeString(input_1)
 	bytes_2, err_2 := hex.DecodeString(input_2)
 
@@ -50,15 +54,15 @@ func problem_2(input_1, input_2 string)string{
 
 	length := len(bytes_1)
 	var result []byte
-	for b:= 0; b < length; b++ {
-		result = append(result,bytes_1[b]^bytes_2[b])
+	for b := 0; b < length; b++ {
+		result = append(result, bytes_1[b]^bytes_2[b])
 	}
 
 	result_encoded := hex.EncodeToString(result)
 	return result_encoded
 }
 
-func problem_3(input string)(string, int){
+func problem_3(input string) (string, int) {
 	working_bytes, err := hex.DecodeString(input)
 	error_checker(err)
 
@@ -66,18 +70,18 @@ func problem_3(input string)(string, int){
 	c_score := 0
 	h_score := 0
 	var solution string
-	for c:= byte(0); ; c++ {
-		for i:=0; i < len(working_bytes); i++ {
-			decoded = append(decoded,c^working_bytes[i])
+	for c := byte(0); ; c++ {
+		for i := 0; i < len(working_bytes); i++ {
+			decoded = append(decoded, c^working_bytes[i])
 		}
-		c_score += strings.Count(string(decoded),"a")
-		c_score += strings.Count(string(decoded),"e")
-		c_score += strings.Count(string(decoded),"i")
-		c_score += strings.Count(string(decoded),"o")
-		c_score += strings.Count(string(decoded),"u")
-		c_score += strings.Count(string(decoded)," ")
-		c_score -= strings.Count(string(decoded),"\n")
-		if c_score > h_score{
+		c_score += strings.Count(string(decoded), "a")
+		c_score += strings.Count(string(decoded), "e")
+		c_score += strings.Count(string(decoded), "i")
+		c_score += strings.Count(string(decoded), "o")
+		c_score += strings.Count(string(decoded), "u")
+		c_score += strings.Count(string(decoded), " ")
+		c_score -= strings.Count(string(decoded), "\n")
+		if c_score > h_score {
 			solution = string(decoded)
 			h_score = c_score
 		}
@@ -90,20 +94,20 @@ func problem_3(input string)(string, int){
 	return solution, h_score
 }
 
-func problem_4(input string)string{
+func problem_4(input string) string {
 	file, err := os.Open(input)
 	error_checker(err)
 	defer file.Close()
-	
+
 	var hex_strings []string
 	scanner := bufio.NewScanner(file)
-	for scanner.Scan(){
+	for scanner.Scan() {
 		hex_strings = append(hex_strings, scanner.Text())
 	}
 
 	h_score := 0
 	var best_suggestion string
-	for i:= 0; i<len(hex_strings); i++ {
+	for i := 0; i < len(hex_strings); i++ {
 		suggestion, score := problem_3(hex_strings[i])
 		//fmt.Println(suggestion)
 		//fmt.Println(score)
@@ -113,4 +117,25 @@ func problem_4(input string)string{
 		}
 	}
 	return best_suggestion
+}
+
+func problem_5(input string) string {
+	var stanza_list []byte
+	for i := 0; i < len(input); i++ {
+		stanza_list = append(stanza_list, input[i])
+	}
+
+	ice_ice_bytes := []byte("ICE")
+	var xored_list []byte
+	index := 0
+	for i := 0; i < len(stanza_list); i++ {
+		xored_list = append(xored_list, stanza_list[i]^ice_ice_bytes[index])
+		if index == 2 {
+			index = 0
+		} else {
+			index += 1
+		}
+	}
+	solution := hex.EncodeToString(xored_list)
+	return solution
 }
