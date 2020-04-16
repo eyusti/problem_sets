@@ -10,6 +10,7 @@ import "bufio"
 import "math/bits"
 import "math"
 import "unicode"
+import "crypto/aes"
 
 func main() {
 	// Problem 1
@@ -34,9 +35,17 @@ func main() {
 	//solution_5 := problem_5(stanza)
 	//fmt.Println(solution_5)
 	//Problem 6
-	const file_name = "set_1_problem_6.txt"
-	solution_6 := problem_6(file_name)
-	fmt.Println(solution_6)
+	//const file_name = "set_1_problem_6.txt"
+	//solution_6 := problem_6(file_name)
+	//fmt.Println(solution_6)
+	//Problem 7
+	//const file_name = "set_1_problem_7.txt"
+	//solution_7 := problem_7(file_name, "YELLOW SUBMARINE")
+	//fmt.Println(solution_7)
+	//Problem 8
+	problem_8()
+	//solution_7 := problem_8()
+	//fmt.Println(solution_8)
 
 }
 
@@ -291,4 +300,31 @@ func problem_6(input string) string {
 	}
 	solution := decrypt_repeated_xor(solved_keysize, list_of_bytes)
 	return string(solution)
+}
+
+func problem_7(input, key string) string {
+	file, err := os.Open(input)
+	error_checker(err)
+	defer file.Close()
+	var lines_from_input []string
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		lines_from_input = append(lines_from_input, scanner.Text())
+	}
+	whole_file := strings.Join(lines_from_input, "")
+	whole_file_in_bytes, err := base64.StdEncoding.DecodeString(whole_file)
+
+	cipher, err := aes.NewCipher([]byte(key))
+	error_checker(err)
+	decrypted_bytes := make([]byte, len(whole_file_in_bytes))
+	size := 16
+
+	for start, end := 0, size; start < len(whole_file_in_bytes); start, end = start+size, end+size {
+		cipher.Decrypt(decrypted_bytes[start:end], whole_file_in_bytes[start:end])
+	}
+	return string(decrypted_bytes)
+}
+
+func problem_8() {
+
 }
