@@ -43,10 +43,10 @@ func main() {
 	//solution_7 := problem_7(file_name, "YELLOW SUBMARINE")
 	//fmt.Println(solution_7)
 	//Problem 8
-	problem_8()
-	//solution_7 := problem_8()
-	//fmt.Println(solution_8)
-
+	const file_name = "set_1_problem_8.txt"
+	solution_8 := problem_8(file_name)
+	//** NOTE THIS IS ZERO INDEXED IT IS LINE 133 IN FILE **
+	fmt.Println(solution_8)
 }
 
 // Helper functions
@@ -325,6 +325,36 @@ func problem_7(input, key string) string {
 	return string(decrypted_bytes)
 }
 
-func problem_8() {
+func problem_8(input string) int {
+	file, err := os.Open(input)
+	error_checker(err)
+	var lines_from_input []string
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		lines_from_input = append(lines_from_input, scanner.Text())
+	}
+	var lines_in_bytes [][]byte
+	for line := 0; line < len(lines_from_input); line++ {
+		line_in_bytes, _ := hex.DecodeString(lines_from_input[line])
+		lines_in_bytes = append(lines_in_bytes, line_in_bytes)
+	}
+
+	count := 0
+	encrypted_line := 0
+	max_count := 0
+	for line := 0; line < len(lines_in_bytes); line++ {
+		for b := 0; b < len(lines_in_bytes[0]); b++ {
+			byte_count := bytes.Count(lines_in_bytes[line], []byte{lines_in_bytes[line][b]})
+			if byte_count > 1 {
+				count += byte_count
+			}
+		}
+		if count > max_count {
+			max_count = count
+			encrypted_line = line
+		}
+		count = 0
+	}
+	return encrypted_line
 
 }
